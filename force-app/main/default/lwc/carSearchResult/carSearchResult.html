@@ -7,10 +7,10 @@
           padding="around-small"
           size="12"
           small-device-size="6"
-          large-device-size="6"
-          medium-device-size="6"
+          large-device-size="3"
+          medium-device-size="4"
         >
-          {car.Name}
+          <c-car-tile car={car} oncarselect={carSelectHandler} car-selected-id={selectedCarId}></c-car-tile>
         </lightning-layout-item>
       </template>
     </template>

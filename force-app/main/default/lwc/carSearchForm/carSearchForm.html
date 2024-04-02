@@ -4,14 +4,13 @@
       <lightning-combobox
         name="carTypes"
         label="Car Types"
-        value={selectedValue}
         placeholder="All Types"
-        options={carTypes}
+        value={selectedValue}
         onchange={handleCarTypeChange}
         variant="label-hidden"
+        options={carTypes}
       ></lightning-combobox>
     </lightning-layout-item>
-
     <lightning-layout-item padding="horizontal-small">
       <lightning-button label="New" onclick={createNewCarType}></lightning-button>
     </lightning-layout-item>

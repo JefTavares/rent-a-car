@@ -7,7 +7,7 @@ export default class CarSearchForm extends NavigationMixin(LightningElement) {
   @track carTypes;
 
   @wire(getCarTypes)
-  wireCarTypes({ data, error }) {
+  wiredCarType({ data, error }) {
     if (data) {
       this.carTypes = [{ value: "", label: "All Types" }];
       data.forEach((element) => {
@@ -17,7 +17,6 @@ export default class CarSearchForm extends NavigationMixin(LightningElement) {
         this.carTypes.push(carType);
       });
     } else if (error) {
-      console.log(error);
       this.showToast("ERROR", error.body.message, "error");
     }
   }

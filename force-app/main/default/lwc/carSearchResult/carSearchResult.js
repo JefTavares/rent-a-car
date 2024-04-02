@@ -6,6 +6,7 @@ export default class CarSearchResult extends LightningElement {
   @api carTypeId; //carTypeId fornecido pelo component pai
 
   @track cars;
+  @track selectedCarId;
 
   //Passo o $ no tornando o wire mais reativo
   @wire(getCars, { carTypeId: "$carTypeId" })
@@ -24,6 +25,12 @@ export default class CarSearchResult extends LightningElement {
       variant: variant
     });
     this.dispatchEvent(evt);
+  }
+
+  //informa qual o car foi selecionado
+  carSelectHandler(event) {
+    const carId = event.detail;
+    this.selectedCarId = carId;
   }
 
   get carsFound() {
