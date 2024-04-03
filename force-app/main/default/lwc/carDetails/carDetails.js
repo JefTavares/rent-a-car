@@ -54,6 +54,8 @@ export default class CarDetails extends LightningElement {
 
   get carFound() {
     if (this.car.data) {
+      console.log("carFound>>>" + this.car.data.fields.Name.value);
+      console.log("carFound>>>" + this.car.data.id);
       return true;
     }
     return false;

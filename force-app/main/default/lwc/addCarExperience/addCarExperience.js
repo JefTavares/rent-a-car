@@ -41,6 +41,7 @@ export default class AddCarExperience extends LightningElement {
         console.log("carExperience>>" + carExperience);
         console.log("expTitle>>>" + this.expTitle);
         console.log("expDescription>>>" + this.expDescription);
+        console.log("this.carId>>>" + this.carId);
         this.expTitle = "";
         this.expDescription = "";
         //this.template.querySelector("form").reset(); //reseta o valor dos campos
