@@ -8,7 +8,7 @@
           </lightning-tab>
 
           <lightning-tab label="Add Car Experience" value="addexperience" onactive={tabChangeHandler}>
-            <c-add-car-experience car-id={car.data.id}></c-add-car-experience>
+            <c-add-car-experience car-id={car.data.id} onexperienceadded={experienceAddedHandler}></c-add-car-experience>
           </lightning-tab>
 
           <lightning-tab label="View Experiences" value="viewexperience" onactive={tabChangeHandler}>

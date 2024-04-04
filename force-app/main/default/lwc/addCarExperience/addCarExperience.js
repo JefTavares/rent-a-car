@@ -45,6 +45,11 @@ export default class AddCarExperience extends LightningElement {
         this.expTitle = "";
         this.expDescription = "";
         //this.template.querySelector("form").reset(); //reseta o valor dos campos
+        const recordAdded = new CustomEvent("experienceadded");
+        //*dispara o evento no component pai (carDetails)
+        //*pode ir lá no carDetails.html que vc acha o evento:
+        //*<c-add-car-experience car-id={carId} onexperienceadded={experienceAddedHandler} > com o mesmo nome
+        this.dispatchEvent(recordAdded);
       })
       .catch((error) => {
         this.showToast("ERROR", error.body.message, "error");

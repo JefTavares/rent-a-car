@@ -28,7 +28,10 @@ const fields = [
 ];
 
 export default class CarDetails extends LightningElement {
-  carId;
+  //propriedade reativa publica (Pois é enviado o valor no component pai)
+  // Tornando ela publica e reativa consigo atualizar o component carExperiences.js sempre que o valor
+  // do carId mudar
+  @track carId;
   @track selectedTabValue; //pega o valor de qual tab foi selecionada (cardetailstab, addexpirience, viewexpirience)
 
   @wire(CurrentPageReference) pageRef;
@@ -50,6 +53,18 @@ export default class CarDetails extends LightningElement {
 
   tabChangeHandler(event) {
     this.selectedTabValue = event.target.value;
+  }
+
+  experienceAddedHandler() {
+    //pego <c-car-experiences car-id={carId}></c-car-experiences>
+    //dou o nome de carExperienceComponent e chamo a função getCarExperiences que agora é @api
+    const carExperienceComponent = this.template.querySelector("c-car-experiences");
+    if (carExperienceComponent) {
+      carExperienceComponent.getCarExperiences();
+    }
+
+    //mudar nossa guia para a guia "View Experience" aqui dentro do carDetails.html.
+    this.selectedTabValue = "viewexperience";
   }
 
   get carFound() {

@@ -4,8 +4,25 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 
 export default class CarExperiences extends NavigationMixin(LightningElement) {
-  @api carId; //propriedade reativa publica (Pois é enviado o valor no component pai)
-  @track carExperiences; //propriedade reativa privada (Pois é utilizada/visivel apenas no component)
+  privateCarId;
+  //@api carId; //propriedade reativa publica (Pois é enviado o valor no component pai), agora estamos fazendo por get e setters
+
+  /*O que eu quero fazer aqui é sempre que essa propriedade for alterada eu quero ligar para minha get carExperience
+método novamente para que possamos carregar o novo registro de experiência do carro de nosso servidor.
+ara isso precisamos definir o getter e o setter para esta propriedade pública em vez de declarar diretamente
+como propriedade pública.
+*/
+  @api
+  get carId() {
+    return this.privateCarId;
+  }
+
+  set carId(value) {
+    this.privateCarId = value;
+    this.getCarExperiences(); //atribui o valor e chama o getCar novamente
+  }
+
+  @track carExperiences = []; //propriedade reativa privada (Pois é utilizada/visivel apenas no component)
 
   connectedCallback() {
     this.getCarExperiences();
@@ -20,8 +37,11 @@ export default class CarExperiences extends NavigationMixin(LightningElement) {
 	backend e nossa resposta será servida a partir do próprio cache profundo do navegador.
 	É melhor não armazenarmos nossa resposta em cache no cache do navegador e torná-la uma chamada imperativa para Método getExperiences
 	*/
+  //*inclui o component como publico reativo pois esta sendo chamado em:
+  //*experienceAddedHandler() do carDetails.js
+  @api
   getCarExperiences() {
-    getExperiences({ carId: this.carId })
+    getExperiences({ carId: this.privateCarId }) /** com a nova solução reativa removi o this.carId para o privateCarId */
       .then((experiences) => {
         this.carExperiences = experiences;
       })
@@ -52,9 +72,9 @@ export default class CarExperiences extends NavigationMixin(LightningElement) {
     this.dispatchEvent(evt);
   }
 
-  //Pergunta se temos expiencies para esse car
+  //Pergunta se temos Experiences para esse car
   get hasExperiences() {
-    if (this.carExperiences) {
+    if (this.carExperiences.length > 0) {
       return true;
     }
     return false;
